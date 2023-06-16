@@ -1,0 +1,17 @@
+{
+  "employees": [
+    {
+      "name": "AHMET Aydın",
+      "department": "Bilgisayar mühendisi",
+      "salary": 2000,
+      "id": 1
+    },
+    {
+      "name": "Melek Aydın",
+      "department": "Bilgisayar mühendisi",
+      "salary": 2000,
+      "id": 2
+    }
+    
+  ]
+}
