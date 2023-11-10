@@ -29,11 +29,25 @@ app.use(express.json());
 // Use cors middleware
 app.use(cors());
 
+// Insert a test user (you can remove this in production)
+app.get("/insert-test-user", (req, res) => {
+    const query = "INSERT INTO users (username, password) VALUES ('testuser', 'testpassword')";
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+        res.status(200).send("Test user inserted successfully");
+    });
+});
+
 app.post("/login", (req, res) => {
     const { kullaniciAdi, parola } = req.body;
+    console.log("Received login request:", req.body);
 
     // Perform your MySQL query to check the credentials
-    const query = "SELECT * FROM alisveris WHERE username = ? AND password = ?";
+    const query = "SELECT * FROM users WHERE username = ? AND password = ?";
     db.query(query, [kullaniciAdi, parola], (err, result) => {
         if (err) {
             console.log(err);
@@ -60,6 +74,6 @@ app.get("/", (req, res) => {
 });
 
 // Server'ı dinle
-app.listen(5051, () => {
+app.listen(5050, () => {
     console.log("Server port 5050'de çalışıyor");
 });

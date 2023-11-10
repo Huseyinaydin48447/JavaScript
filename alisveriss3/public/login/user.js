@@ -1,30 +1,13 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+    console.log("DOMContentLoaded event fired");
+
+    const loginForm = document.getElementById("login-form");
     const loginLink = document.getElementById("navbar-login");
 
-    if (loginLink) {
-        loginLink.addEventListener("click", function (event) {
-            event.preventDefault();
-
-            // Kullanıcı girişi kontrolü yapın
-            const isLoggedIn = false; // Burada kullanıcı girişi kontrolü yapılmalı
-
-            if (isLoggedIn) {
-                console.log("doğru")
-                // Kullanıcı giriş yapmışsa anasayfaya yönlendir
-                window.location.href = "../index.html";
-            } else {
-                console.log("yanlış")
-
-                // Kullanıcı giriş yapmamışsa login sayfasına yönlendir
-                window.location.href = "indexx.html";
-            }
-        });
-    } else {
-        console.error("navbar-login element not found.");
+    if (!loginForm || !loginLink) {
+        console.error("Login form or login link not found.");
+        return;
     }
-
-
-    const loginForm = document.querySelector("#login-form");
 
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -49,11 +32,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Login successful, update the UI
-            if (loginLink) {
-                loginLink.innerText = "Hesabım";
-                loginLink.href = "../index.html";  // veya başka bir sayfaya yönlendirme yapabilirsiniz
-            }
+            console.log("Login successful. Updating UI and redirecting.");
+            console.log("Before update - InnerText:", loginLink.innerText);
+            loginLink.innerText = "Hesabım";
+            console.log("After update - InnerText:", loginLink.innerText);
+            
+                window.location.replace("../index.html");
+            
+
         } catch (error) {
             console.error("An error occurred:", error);
         }
