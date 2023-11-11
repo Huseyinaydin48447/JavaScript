@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- <script src="./login/user.js" ></script> -->
+    
+    
 
 </head>
  
@@ -21,9 +23,10 @@
                 <li><a class="active" href="index.html">Anasayfa</a></li>
                 <li><a href="#">Alışveriş</a></li>
                 <li><a href="#">Hakkımızda</a></li>
-                <li><a  href="./login/indexx.html" id="navbar-login"><i class="fas fa-user"></i> Login</a></li>
+                <li><a  href="./login/index.html" id="navbar-login"><i class="fas fa-user"></i> xali</a></li>
                 <li><a href="#"><i class="fas fa-shopping-cart"></i> Sepetim</a></li>
             </ul>
+            
         </div>
         <div id="mobile">
             <i id="bar" class="fas fa-outdent"></i>
@@ -464,7 +467,31 @@
     </footer>
     <!-- <script src="script.js"></script> -->
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
-    <script src="./login/user.js" defer></script>
+    <script src="./login/user.js" ></script>
+    <!-- <script>
+        if(localStorage.getItem("auth")){
+            document.getElementById("navbar-login").innerHTML("asa");
+        }else {
+            null
+        }
+    </script> -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check and update navbar content on page load
+        updateNavbarContent();
+
+        function updateNavbarContent() {
+            const authUsername = localStorage.getItem("auth");
+            const navbarLogin = document.getElementById("navbar-login");
+
+            if (authUsername && navbarLogin) {
+                navbarLogin.innerHTML = `<i class="fas fa-user"></i> ${authUsername}`;
+            }
+        }
+    });
+</script>
+
 
 </body>
 </html>
