@@ -132,19 +132,19 @@
                 </select>
             </div>
 
+       
             <div class="column">
-
                 <input style="width: 100px; " type="text" id="datePicker" placeholder="Select Date">
-
             </div>
+            <button id="btn-setAlarm" type="submit">Set Alarm 1</button>
+            <button id="btn-setAlarm2" type="submit">Set Alarm 2</button>
 
-            <button id="startButton" onclick="startAlarms()">Start Alarms</button>
-
-            <button id="btn-setAlarm" type="submit">Set Alarm</button>
+        
 
         </div>
 
         <hr>
+        <button id="startButton" onclick="startAlarms()">Start Alarms</button>
 
         <h3 id="alarm-h3"></h3>
 
@@ -157,10 +157,6 @@
             enableTime: false,
             dateFormat: "Y-m-d", // Tarih formatı(Yıl-Ay-Gün)
         });
-
-
-
-
         
     </script>
 </body>

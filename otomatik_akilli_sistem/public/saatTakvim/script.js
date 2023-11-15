@@ -18,7 +18,7 @@ function updateClock() {
     hou = now.getHours(),
     min = now.getMinutes(),
     sec = now.getSeconds(),
-    pe = "AM";
+    pe = "PM";
 
   if (hou == 0) {
     hou = 12;
@@ -81,15 +81,12 @@ function updateClock() {
   for (var i = 0; i < ids.length; i++) {
     document.getElementById(ids[i]).firstChild.nodeValue = values[i];
   }
+
   for (let i = 0; i < alarmListArr.length; i++) {
-    if (alarmListArr[i] == `${hou.pad(2)}:${min.pad(2)}:${sec.pad(2)} ${pe}`) {
-      console.log("Alarm time matched:", alarmListArr[i]);
-      ring.load();
-      ring.play();
-      document.querySelector("#stopAlarm").style.visibility = "visible";
+    if(alarmStarted){
+      start();
     }
   }
-  
 }
 
 function initClock() {
@@ -122,6 +119,13 @@ for (let i = 2; i > 0; i--) {
 }
 
 function setAlarm() {
+  setAlarmHelper("Set Alarm 1");
+
+}
+function setAlarm2() {
+  setAlarmHelper("Set Alarm 2");
+}
+function setAlarmHelper(alarmText) {
   if (alarmStarted) {
     alert("Please stop the alarms before setting new ones.");
     return;
@@ -133,102 +137,97 @@ function setAlarm() {
   document.querySelector("#alarm-h3").innerText = "Alarms";
   let time = `${selectMenu[0].value}:${selectMenu[1].value}:${selectMenu[2].value} ${selectMenu[3].value}`;
   let date = document.querySelector("#datePicker").value;
- console.log(date)
+
   if (
     time.includes("setHour") ||
     time.includes("setMinute") ||
     time.includes("setSeconds") ||
     time.includes("AM/PM") ||
     date === ""
-
   ) {
-    alert("Please, Select Valide Input");
+    alert("Please, Select Valid Input");
   } else {
     alarmCount++;
-    
     document.querySelector(".alarmList").innerHTML += `
         <div class="alarmLog" id="alarm${alarmCount}">
             <span id="span${alarmCount}">${time}</span>
             <span style="margin-left: 10px;">${date}</span>
             <button class="btn-delete" id="${alarmCount}" onClick="deleteAlarm(this.id)">Delete</button>
-           
         </div>`;
 
     alarmTime = `${selectMenu[0].value}:${selectMenu[1].value}:${selectMenu[2].value} ${selectMenu[3].value}`;
     alarmListArr.push(alarmTime);
-    console.log(document.querySelector(".btn-delete").value);
-    alert(`Your Alarm Set ${alarmTime}.`);
-   
+    alert(`Your ${alarmText} Set ${alarmTime}.`);
   }
 }
+
+document.getElementById("btn-setAlarm").addEventListener("click", setAlarm);
+document.getElementById("btn-setAlarm2").addEventListener("click", setAlarm2);
 setAlarmBtn.addEventListener("click", setAlarm);
 
 
+// ...
+
+// ...
+
+// ...
+
+// ...
+function test(){
+  console.log("alarm started")
+      
+  console.log("Alarm ringing...");
+  ring.load();
+  ring.play();
+  document.querySelector("#stopAlarm").style.visibility = "visible";
+  setTimeout(() => {
+    alarmStarted = false;
+    stopAlarm();
+    console.log('alarm stopped');
+  }, 5000);
+}
+function start(){
+  console.log("start started")
+  var now = new Date();
+    let hou = now.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit', second:'2-digit', hour12: true});
+    console.log(alarmListArr[1]);
+    console.log(JSON.stringify(alarmListArr));
+    console.log(hou)
+//"01:16:00 PM"
+
+
+  if (alarmListArr[1] === hou && alarmStarted) {
+   test();
+  }
+
+}
 function startAlarms() {
-  console.log("Alarms started");
-
-  if (!alarmStarted) {
-    alert("Please set alarms before starting.");
+  if (alarmListArr.length===0) {
+    console.log("Please set alarms before starting.");
     return;
   }
-
   if (alarmListArr.length < 2) {
-    alert("Please set at least two alarms to start.");
+    console.log("Please set at least two alarms to start.");
     return;
   }
+alarmStarted = true;
+console.log(alarmStarted);
 
-  alarmStarted = true;
 
-  const alarm1Time = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-
-  const alarm2Time = alarmListArr[1];
-
-  const timeDiff = getTimeDifferenceInSeconds(alarm1Time, alarm2Time);
-  console.log("Alarm 1 Time:", alarm1Time);
-  console.log("Alarm 2 Time:", alarm2Time);
-  console.log("Time Difference:", timeDiff);
-  let isFirstAlarmRinging = false;
-
-  intervalId = setInterval(() => {
-    updateClock(); 
-
-    const currentAlarmTime = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    });
-
-    if (!isFirstAlarmRinging && currentAlarmTime === alarmListArr[0]) {
-      console.log("Alarm 1 ringing...");
-      isFirstAlarmRinging = true;
-      ring.load();
-      ring.play();
-      document.querySelector("#stopAlarm").style.visibility = "visible";
-    }
-
-    if (isFirstAlarmRinging && getTimeDifferenceInSeconds(currentAlarmTime, alarmListArr[1]) >= timeDiff) {
-      console.log("Alarm 2 ringing...");
-      ring.load();
-      ring.play();
-      document.querySelector("#stopAlarm").style.visibility = "visible";
-      clearInterval(intervalId); 
-      alarmStarted = false;
-      isFirstAlarmRinging = false; 
-
-    }
-    
-  }, 1000);
 }
 
 const startButton = document.getElementById("startButton");
-startButton.addEventListener("click", startAlarms);
+startButton.addEventListener("click", function () {
+  if (alarmListArr.length >= 2) {
+    alarmStarted = true; 
+    startAlarms();
+  } else {
+    alert("Please set at least two alarms to start.");
+  }
+});
 
+
+startButton.addEventListener("click", startAlarms);
 
 function getTimeDifferenceInSeconds(time1, time2) {
   const time1Array = time1.split(":").map(Number);

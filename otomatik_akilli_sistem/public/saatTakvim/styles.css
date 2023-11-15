@@ -138,6 +138,17 @@ hr{
     inset 5px 5px 20px rgba(255,255,255,0.2),
     inset -5px -5px 15px rgba(0,0,0,0.75);
 }
+#btn-setAlarm2, .btn-delete, #stopAlarm{
+  padding: 5px;
+  color: #fff;
+  background: #10101E;
+  border: 2px solid rgba(0,0,0,0.25);
+  border-radius: 18px;
+  box-shadow: 10px 50px 70px rgba(0,0,0,0.25),
+  inset 5px 5px 10px rgba(0,0,0,0.5),
+  inset 5px 5px 20px rgba(255,255,255,0.2),
+  inset -5px -5px 15px rgba(0,0,0,0.75);
+}
 
 #stopAlarm{
     visibility: hidden;
@@ -154,7 +165,11 @@ hr{
     background: rgba(255,255,255,0.2);
     box-shadow: 0 0 30px rgba(255,255,255,0.2);
 }
-
+#btn-setAlarm2:hover, .btn-delete:hover, #stopAlarm:hover{
+  cursor: pointer;
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 0 30px rgba(255,255,255,0.2);
+}
 h3{
     color: #fff;
     font-family: "Segoe UI", sans-serif;
