@@ -126,6 +126,7 @@ function setAlarm2() {
   setAlarmHelper("Set Alarm 2");
 }
 function setAlarmHelper(alarmText) {
+  
   if (alarmStarted) {
     alert("Please stop the alarms before setting new ones.");
     return;
@@ -154,10 +155,13 @@ function setAlarmHelper(alarmText) {
             <span style="margin-left: 10px;">${date}</span>
             <button class="btn-delete" id="${alarmCount}" onClick="deleteAlarm(this.id)">Delete</button>
         </div>`;
+        let fullDateTime = new Date(`${date} ${selectMenu[0].value}:${selectMenu[1].value}:${selectMenu[2].value} ${selectMenu[3].value}`);
 
     alarmTime = `${selectMenu[0].value}:${selectMenu[1].value}:${selectMenu[2].value} ${selectMenu[3].value}`;
-    alarmListArr.push(alarmTime);
-    alert(`Your ${alarmText} Set ${alarmTime}.`);
+    alarmListArr.push(fullDateTime);
+    alert(`Your ${alarmText} Set ${fullDateTime}.`);
+    saveAlarmsToLocalStorage();
+
   }
 }
 
@@ -165,12 +169,6 @@ document.getElementById("btn-setAlarm").addEventListener("click", setAlarm);
 document.getElementById("btn-setAlarm2").addEventListener("click", setAlarm2);
 setAlarmBtn.addEventListener("click", setAlarm);
 
-
-// ...
-
-// ...
-
-// ...
 
 // ...
 function test(){
@@ -186,35 +184,65 @@ function test(){
     console.log('alarm stopped');
   }, 5000);
 }
-function start(){
-  console.log("start started")
+let currentAlarmIndex = 0;
+//........
+let firstAlarmOccurred = false;
+
+function start() {
+  console.log("start started");
   var now = new Date();
-    let hou = now.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit', second:'2-digit', hour12: true});
-    console.log(alarmListArr[1]);
-    console.log(JSON.stringify(alarmListArr));
-    console.log(hou)
-//"01:16:00 PM"
+  let currentDateTime = now.getTime();
 
+  console.log("Current Date and Time:", now);
+  console.log("Alarm List:", JSON.stringify(alarmListArr));
 
-  if (alarmListArr[1] === hou && alarmStarted) {
-   test();
+  if (!firstAlarmOccurred) {
+    let firstAlarmTime = alarmListArr[currentAlarmIndex].getTime();
+
+    if (currentDateTime > firstAlarmTime) {
+      firstAlarmOccurred = true;
+    }
+  } else if (alarmListArr.length > currentAlarmIndex + 1) {
+    let secondAlarmTime = alarmListArr[currentAlarmIndex + 1].getTime();
+
+    if (currentDateTime > secondAlarmTime) {
+      test();
+      currentAlarmIndex++; 
+      firstAlarmOccurred = false; 
+    }
   }
-
 }
+
+
+
+
+
 function startAlarms() {
-  if (alarmListArr.length===0) {
-    console.log("Please set alarms before starting.");
-    return;
-  }
   if (alarmListArr.length < 2) {
     console.log("Please set at least two alarms to start.");
     return;
   }
-alarmStarted = true;
-console.log(alarmStarted);
-
-
+  alarmStarted = true;
+  currentAlarmIndex = 0;
+  start();
 }
+
+
+
+
+
+function getTimeDifferenceInSeconds(time1, time2) {
+  const time1Array = time1.split(":").map(Number);
+  const time2Array = time2.split(":").map(Number);
+
+  const seconds1 = time1Array[0] * 3600 + time1Array[1] * 60 + time1Array[2];
+  const seconds2 = time2Array[0] * 3600 + time2Array[1] * 60 + time2Array[2];
+
+  return Math.abs(seconds2 - seconds1);
+}
+
+
+
 
 const startButton = document.getElementById("startButton");
 startButton.addEventListener("click", function () {
@@ -229,15 +257,7 @@ startButton.addEventListener("click", function () {
 
 startButton.addEventListener("click", startAlarms);
 
-function getTimeDifferenceInSeconds(time1, time2) {
-  const time1Array = time1.split(":").map(Number);
-  const time2Array = time2.split(":").map(Number);
 
-  const seconds1 = time1Array[0] * 3600 + time1Array[1] * 60 + time1Array[2];
-  const seconds2 = time2Array[0] * 3600 + time2Array[1] * 60 + time2Array[2];
-
-  return Math.abs(seconds2 - seconds1);
-}
 
 
 function deleteAlarm(click_id) {
@@ -247,7 +267,10 @@ function deleteAlarm(click_id) {
   );
   alarmListArr.splice(deleteIndex, 1);
   element.remove();
+  updateAlarmListUI(); 
+
   alert(`Your Alarm ${click_id} Delete.`);
+
 }
 
 function stopAlarm() {
@@ -295,8 +318,10 @@ setInterval(() => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  updateNavbarContent();
-
+  loadAlarmsFromLocalStorage();
+  updateAlarmListUI();
+  updateClock();
+  initClock();
   function updateNavbarContent() {
     const authUsername = localStorage.getItem("auth");
 
@@ -321,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         logoutLink.addEventListener("click", function () {
           localStorage.removeItem("auth");
-          updateNavbarContent(); // Çıkış yapıldığında anında güncelleme yapma
+          updateNavbarContent(); 
         });
 
         dropdownContent.innerHTML = "";
@@ -332,7 +357,6 @@ document.addEventListener("DOMContentLoaded", function () {
             logoutLink.style.marginTop = "5px";
         }
       } else {
-        // Oturum açılmamışsa
         loginLink.innerHTML = `<i class="fas fa-user"></i> Giriş-Kayıt`;
 
         dropdownContent.innerHTML = `
@@ -344,3 +368,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+function loadAlarmsFromLocalStorage() {
+  const storedAlarms = localStorage.getItem("alarms");
+  if (storedAlarms) {
+    alarmListArr = JSON.parse(storedAlarms);
+  }
+}
+function saveAlarmsToLocalStorage() {
+  localStorage.setItem("alarms", JSON.stringify(alarmListArr));
+}
+
+function updateAlarmListUI() {
+  document.querySelector(".alarmList").innerHTML = "";
+  for (let i = 0; i < alarmListArr.length; i++) {
+    const formattedTime = formatTime(new Date(alarmListArr[i]));
+    const formattedDate = formatDate(new Date(alarmListArr[i]));
+    document.querySelector(".alarmList").innerHTML += `
+        <div class="alarmLog" id="alarm${i + 1}">
+            <span>${formattedTime}</span>
+            <br/>
+            <span>&nbsp;&nbsp;${formattedDate}</span> 
+            <button class="btn-delete" id="${i + 1}" onClick="deleteAlarm(${i + 1})">Delete</button>
+        </div>`;
+  }
+}
+
+function formatTime(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  let ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+  hours = hours ? hours : 12; 
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+
+  return `${hours}:${minutes}:${seconds} ${ampm}`;
+}
+
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; 
+  const day = date.getDate();
+
+  return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+}
+
