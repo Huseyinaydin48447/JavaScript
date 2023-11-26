@@ -189,6 +189,8 @@ h3{
     font-weight: 900;
     text-align: center;
     margin-bottom: 3%;
+    height: 20px; 
+    overflow-y: auto;
 }
 
 .alarmList{
@@ -199,7 +201,14 @@ h3{
     flex-direction: column;
     justify-content: space-evenly;
 }
+.alarms-container {
+  max-height: 150px; 
+  overflow-y: auto;
+}
+.alarmLog {
 
+  margin-bottom: 10px; 
+}
 .alarmLog{
     font-size: 30px;
     display: flex;

@@ -170,20 +170,14 @@ document.getElementById("btn-setAlarm2").addEventListener("click", setAlarm2);
 setAlarmBtn.addEventListener("click", setAlarm);
 
 
-// ...
-function test(){
-  console.log("alarm started")
-      
+function test() {
+  console.log("alarm started");
   console.log("Alarm ringing...");
   ring.load();
   ring.play();
   document.querySelector("#stopAlarm").style.visibility = "visible";
-  setTimeout(() => {
-    alarmStarted = false;
-    stopAlarm();
-    console.log('alarm stopped');
-  }, 5000);
 }
+
 let currentAlarmIndex = 0;
 //........
 let firstAlarmOccurred = false;
@@ -258,20 +252,28 @@ startButton.addEventListener("click", function () {
 startButton.addEventListener("click", startAlarms);
 
 
-
-
 function deleteAlarm(click_id) {
-  var element = document.getElementById("alarm" + click_id);
-  var deleteIndex = alarmListArr.indexOf(
-    document.querySelector("#span" + click_id).innerText
-  );
-  alarmListArr.splice(deleteIndex, 1);
-  element.remove();
-  updateAlarmListUI(); 
+  const element = document.getElementById("alarm" + click_id);
 
-  alert(`Your Alarm ${click_id} Delete.`);
+  if (element) {
+    const deleteIndex = click_id - 1; 
 
+    if (deleteIndex >= 0 && deleteIndex < alarmListArr.length) {
+      alarmListArr.splice(deleteIndex, 1);
+      element.remove();
+      updateAlarmListUI();
+      alert(`Your Alarm ${click_id} Deleted.`);
+      saveAlarmsToLocalStorage();
+    } else {
+      alert("Invalid index for alarm deletion.");
+    }
+  } else {
+    alert(`Element not found for ID: "alarm${click_id}"`);
+  }
 }
+
+
+
 
 function stopAlarm() {
   ring.pause();
@@ -322,6 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateAlarmListUI();
   updateClock();
   initClock();
+  updateNavbarContent();
   function updateNavbarContent() {
     const authUsername = localStorage.getItem("auth");
 
@@ -368,6 +371,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+
+
 function loadAlarmsFromLocalStorage() {
   const storedAlarms = localStorage.getItem("alarms");
   if (storedAlarms) {

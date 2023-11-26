@@ -133,11 +133,13 @@ function setAlarm() {
   } else {
     alarmCount++;
     document.querySelector(".alarmList").innerHTML += `
-        <div class="alarmLog" id="alarm${alarmCount}">
-            <span id="span${alarmCount}">${time}</span>
-            <button class="btn-delete" id="${alarmCount}" onClick="deleteAlarm(this.id)">Delete</button>
-        </div>`;
-
+    <div class="alarmLog" id="alarm${alarmCount}">
+        <span id="span${alarmCount}">${time}</span>
+        <button class="btn-delete" id="${alarmCount}" onClick="deleteAlarm(this.id)">Delete</button>
+    </div>`;
+    const alarmListContainer = document.querySelector(".alarmList");
+    alarmListContainer.scrollTop = alarmListContainer.scrollHeight;
+    
     alarmTime = `${selectMenu[0].value}:${selectMenu[1].value}:${selectMenu[2].value} ${selectMenu[3].value}`;
     alarmListArr.push(alarmTime);
     console.log(document.querySelector(".btn-delete").value);
@@ -197,52 +199,3 @@ setInterval(() => {
   yampm.innerHTML = am;
 });
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   updateNavbarContent();
-
-//   function updateNavbarContent() {
-//     const authUsername = localStorage.getItem("auth");
-
-//     const loginLink = document.querySelector(
-//       ".navbar .nav-link.dropdown-toggle"
-//     );
-//     const dropdownContent = document.querySelector(".navbar .dropdown-menu");
-
-//     if (loginLink && dropdownContent) {
-//       if (authUsername) {
-//         // Oturum açılmışsa
-//         loginLink.innerHTML = `<i class="fas fa-user"></i> ${authUsername}`;
-
-//         const hesabimLink = document.createElement("a");
-//         hesabimLink.href = "#";
-//         hesabimLink.textContent = "Hesabım";
-
-//         const logoutLink = document.createElement("a");
-//         logoutLink.href = "#";
-//         logoutLink.id = "logout-link";
-//         logoutLink.textContent = "Çıkış Yap";
-
-//         logoutLink.addEventListener("click", function () {
-//           localStorage.removeItem("auth");
-//           updateNavbarContent(); 
-//         });
-
-//         dropdownContent.innerHTML = "";
-//         dropdownContent.appendChild(hesabimLink);
-//         dropdownContent.appendChild(logoutLink);
-//         if (logoutLink) {
-//             logoutLink.style.display = "block";
-//             logoutLink.style.marginTop = "5px";
-//         }
-//       } else {
-//         loginLink.innerHTML = `<i class="fas fa-user"></i> Giriş-Kayıt`;
-
-//         dropdownContent.innerHTML = `
-//                     <a class="dropdown-item" href="../login/index.html" styel="">Login</a>
-//                     <a class="dropdown-item" href="../login/index.html">Sign Up</a>
-//                 `;
-                
-//       }
-//     }
-//   }
-// });
