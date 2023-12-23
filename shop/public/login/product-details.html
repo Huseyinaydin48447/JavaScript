@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <!-- Include your CSS styles if needed -->
+</head>
+
+<body>
+
+    <h1>Product Details</h1>
+
+    <div id="product-details-container">
+        <img id="product-image" src="" alt="Product Image">
+        <div id="product-info">
+            <h2 id="product-name"></h2>
+            <p id="product-price"></p>
+        </div>
+    </div>
+
+    <!-- Include your script.js file if needed -->
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+    <script src="./login/user.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve product details from the URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const productName = urlParams.get('name');
+            const productPrice = urlParams.get('price');
+
+            // Update the product details on the page
+            const productNameElement = document.getElementById('product-name');
+            const productPriceElement = document.getElementById('product-price');
+            const productImageElement = document.getElementById('product-image');
+
+            productNameElement.textContent = productName;
+            productPriceElement.textContent = productPrice;
+            // You can set the product image source based on the product or load it dynamically
+
+            // Add the product to the shopping cart or perform any other necessary actions
+        });
+    </script>
+
+</body>
+
+</html>

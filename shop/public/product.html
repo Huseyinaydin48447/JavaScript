@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>48447 Alışveriş Sitesi</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" type="text/css" href="./style.css">
+
+
+
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="#">48447</a>
+        <div>
+            <ul id="navbar">
+                <li><a href="home.html">Anasayfa</a></li>
+                <li><a class="active" href="#">Alışveriş</a></li>
+                <li><a href="#">Hakkımızda</a></li>
+                <li id="navbar-login" class="dropdown">
+                    <a href="#" class="dropdown-btn"><i class="fas fa-user"></i> xali</a>
+                    <div class="dropdown-content">
+                        <a href="./login/index.html">Login</a>
+                        <a href="./login/index.html">Sign Up</a>
+                    </div>
+                </li>
+                <li id="navbar-messages" class="dropdown">
+                    <a href="#" class="dropdown-btn"><i class="fas fa-envelope"></i></a>
+                    <div class="dropdown-content messages-content">
+                        <a href="message.html">
+                            <div class="message-item">
+                                <p><strong>John Doe:</strong> Hello, how are you?</p>
+                            </div>
+                        </a>
+                        <a href="message.html">
+                            <div class="message-item">
+                                <p><strong>Jane Smith:</strong> Let's catch up later.</p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+
+
+
+                <li id="navbar-notifications" class="dropdown">
+                    <a href="#" class="dropdown-btn"><i class="fas fa-bell"></i></a>
+                    <div class="dropdown-content notifications-content">
+                        <a href="./notification.html">Sayın Mehmet kaya çekişten bir gömlek kazandınız</a>
+                        <a href="#">Sayın Mehmet kaya çekişten bir gömlek kazandınız</a>
+                        <a href="#">Sayın Mehmet kaya çekişten bir gömlek kazandınız</a>
+                    </div>
+                </li>
+
+                <li id="navbar-cart"><a href="#"><i class="fas fa-shopping-cart"></i> Sepetim <span id="cart-count">0</span>
+                    </a></li>
+
+            </ul>
+
+        </div>
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="shopp">
+        <div class="product">
+
+            <div class="single-pro-image">
+                <div class="info0">
+                    <img src="" alt="" id="product-img">
+                    <div class="prev-next-icons">
+                        <span class="prev-icon" onclick="changeImageByStep(-1)">&#10094;</span>
+                        <span class="next-icon" onclick="changeImageByStep(1)">&#10095;</span>
+                    </div>
+                </div>
+
+                <div class="small-img-group">
+                    <div class="small-img-col">
+                        <img src="img/yeni/a1.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="img/yeni/a2.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="img/yeni/a3.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="img/yeni/a4.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="img/yeni/a5.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="img/yeni/a6.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="img/yeni/a7.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="info">
+                <span id="product-brand"></span>
+                <h5 id="product-name"></h5>
+                <div class="star">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4 id="product-price"></h4>
+
+                <select>
+                    <option value="">Beden</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>K</option>
+                </select>
+
+                <div class="info2">
+                    <input type="number" value="1" id="quantityInput" oninput="validateQuantity()">
+                    <button class="normal">Sepete Ekle</button>
+                </div>
+                <div class="info3">
+                    <p>Bir ürün, birden fazla satıcı tarafından satılabilir. Birden fazla satıcı tarafından satışa sunulan ürünlerin satıcıları ürün için belirledikleri fiyata, satıcı puanlarına, teslimat statülerine, ürünlerdeki promosyonlara, kargonun bedava olup olmamasına ve ürünlerin hızlı teslimat ile teslim edilip edilememesine, ürünlerin stok ve kategorileri bilgilerine göre sıralanmaktadır.</p>
+                    <p>Bu üründen en fazla 10 adet sipariş verilebilir. 10 adedin üzerindeki siparişleri 48447 iptal etme hakkını saklı tutar. Belirlenen bu limit kurumsal siparişlerde geçerli olmayıp, kurumsal siparişler için farklı limitler belirlenebilmektedir.</p>
+                    <p>15 gün içinde ücretsiz iade.</p>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newtext">
+            <h4>Yeni ürünlerden haberdar olmak için kaydolun</h4>
+            <p>En son mağazamız hakkında e-posta güncellemelerini alın ve <span>özel Fırsatlardan</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="E-posta adresiniz">
+            <button class="normal">Kaydol</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <!-- <a href="#">48447</a> -->
+            <h4>İletişim</h4>
+            <p><strong>Adres: </strong>VEYSEL KARANİ MAHALLESİ 1903 SOKAK 19.</p>
+            <p><strong>Telefon: </strong> +90 546 365 /(+90)543 974 23 56 </p>
+            <p><strong>Çalışma Saatleri: </strong>10:00 - 18:00, Paz - Cum </p>
+            <div class="follow">
+                <h4>Bizi Takip Edin</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>Hakkında</h4>
+            <a href="#">Hakkımızda</a>
+            <a href="#">Teslimat Bilgileri</a>
+            <a href="#">Gizlilik Politikası</a>
+            <a href="#">Kullanım Şartları ve Koşulları</a>
+            <a href="#">Bize Ulaşın</a>
+        </div>
+
+        <div class="col">
+            <h4>Hesabım</h4>
+            <a href="#">Giriş Yap</a>
+            <a href="#">Sepeti İncele</a>
+            <a href="#">İstek Listem</a>
+            <a href="#">Siparişimi Takip Et</a>
+            <a href="#">Yardım</a>
+        </div>
+
+        <div class="col install">
+            <h4>Uygulamayı Yükle</h4>
+            <p>App Store'dan veya Google Play'den</p>
+            <div class="row">
+                <img src="img/app.jpg" alt="">
+                <img src="img/play.jpg" alt="">
+            </div>
+            <p>Güvenli Ödeme Geçitleri</p>
+            <img src="img/pay.png" alt="">
+        </div>
+        <div class="copyright">
+            <p>© 2023 48447 Tüm Hakları Saklıdır!</p>
+        </div>
+    </footer>
+    <!-- <script src="script.js"></script> -->
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+    <script src="./login/user.js"></script>
+    <!-- <script>
+        if(localStorage.getItem("auth")){
+            document.getElementById("navbar-login").innerHTML("asa");
+        }else {
+            null
+        }
+    </script> -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateNavbarContent();
+
+            function updateNavbarContent() {
+                const authUsername = localStorage.getItem("auth");
+
+                const loginLink = document.querySelector("#navbar-login .dropdown-btn");
+                const dropdownContent = document.querySelector("#navbar-login .dropdown-content");
+
+                if (loginLink && dropdownContent) {
+                    if (authUsername) {
+                        // Oturum açılmışsa
+                        loginLink.innerHTML = `<i class="fas fa-user"></i> ${authUsername}`;
+
+                        const hesabimLink = document.createElement("a");
+                        hesabimLink.href = "#";
+                        hesabimLink.textContent = "Hesabım";
+
+                        const logoutLink = document.createElement("a");
+                        logoutLink.href = "#";
+                        logoutLink.id = "logout-link";
+                        logoutLink.textContent = "Çıkış Yap";
+
+                        logoutLink.addEventListener("click", function() {
+                            localStorage.removeItem("auth");
+                            updateNavbarContent(); // Çıkış yapıldığında anında güncelleme yap
+                        });
+
+                        dropdownContent.innerHTML = "";
+                        dropdownContent.appendChild(hesabimLink);
+                        dropdownContent.appendChild(logoutLink);
+                    } else {
+                        // Oturum açılmamışsa
+                        loginLink.innerHTML = `<i class="fas fa-user"></i> Hesabım`;
+
+                        dropdownContent.innerHTML = `
+                    <a href="./login/index.html">Login</a>
+                    <a href="./login/index.html">Sign Up</a>
+                `;
+                    }
+                }
+            }
+
+
+
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            let productJSON = localStorage.getItem("product");
+            let product = JSON.parse(productJSON);
+
+            document.getElementById("product-img").src = product.img;
+            document.getElementById("product-brand").textContent = product.brand;
+            document.getElementById("product-name").textContent = product.name;
+            document.getElementById("product-price").textContent = product.price;
+
+            // Eğer geri dönüş yapıldıysa local storage temizlemek 
+            if (document.referrer.includes("home.html")) {
+                localStorage.removeItem("product");
+            }
+        });
+
+
+        // sepetteki kare şeklindekini 0 küçük olmasın ve eksi değer alması için
+        function validateQuantity() {
+            var quantityInput = document.getElementById("quantityInput");
+            var quantityValue = parseInt(quantityInput.value);
+            // Eğer değer 0'dan küçükse 0 olarak ayarla
+            if (quantityValue < 0) {
+                quantityInput.value = 0;
+            }
+        }
+
+
+        // var MainImage = document.getElementById("product-img")
+        // var smallImages  = document.getElementsByClassName("small-img")
+  
+        // smallImages [0].onclick = function() {
+        //     MainImage.src = smallImages [0].src;
+        // }
+        // smallImages [1].onclick = function() {
+        //     MainImage.src = smallImages [1].src;
+        // }
+        // smallImages [2].onclick = function() {
+        //     MainImage.src = smallImages [2].src;
+        // }
+        // smallImages [3].onclick = function() {
+        //     MainImage.src = smallImages [3].src;
+        // }
+        // smallImages [4].onclick = function() {
+        //     MainImage.src = smallImages [4].src;
+        // }
+        // smallImages [5].onclick = function() {
+        //     MainImage.src = smallImages [5].src;
+        // }
+        // smallImages [6].onclick = function() {
+        //     MainImage.src = smallImages [6].src;
+        // }
+
+        //<img src="img/yeni/a1.jpg" width="100%" class="small-img" onmouseover="changeImage(this)">
+        var MainImage = document.getElementById("product-img")
+        var smallImages  = document.getElementsByClassName("small-img")
+        var currentImageIndex = 0;
+
+        function changeImage(element) {
+            MainImage.src = element.src;
+            // ikonlar
+            currentImageIndex = Array.from(smallImages).indexOf(element);
+        }
+
+        //ikonlar
+        function changeImageByStep(step) {
+        currentImageIndex += step;
+
+        // Kontrol etme, resim endeksini sınırlara getirme
+        if (currentImageIndex < 0) {
+            currentImageIndex = smallImages.length - 1;
+        } else if (currentImageIndex >= smallImages.length) {
+            currentImageIndex = 0;
+        }
+
+        // Yeni resmi ayarla
+        MainImage.src = smallImages[currentImageIndex].src;
+    }
+    </script>
+
+
+</body>
+
+</html>
